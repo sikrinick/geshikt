@@ -5,11 +5,6 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
-@JvmInline value class Title(val value: String)
-@JvmInline value class Id(val value: String)
-fun id(id: String) = Id(id)
-fun title(title: String) = Title(title)
-
 @OptIn(ExperimentalContracts::class)
 class Spreadsheet internal constructor(
     internal val id: String? = null,
@@ -33,7 +28,13 @@ class Spreadsheet internal constructor(
         }
         Sheet(SheetTitle(name), modifier, boxModifier).apply(block).apply(sheets::add)
     }
+
+    @JvmInline value class Title(val value: String)
+    @JvmInline value class Id(val value: String)
 }
 
-fun spreadsheet(id: Id, block: Spreadsheet.() -> Unit) = Spreadsheet(id.value, null).apply(block)
-fun spreadsheet(title: Title, block: Spreadsheet.() -> Unit) = Spreadsheet(null, title.value).apply(block)
+fun id(id: String) = Spreadsheet.Id(id)
+fun title(title: String) = Spreadsheet.Title(title)
+
+fun spreadsheet(id: Spreadsheet.Id, block: Spreadsheet.() -> Unit) = Spreadsheet(id.value, null).apply(block)
+fun spreadsheet(title: Spreadsheet.Title, block: Spreadsheet.() -> Unit) = Spreadsheet(null, title.value).apply(block)

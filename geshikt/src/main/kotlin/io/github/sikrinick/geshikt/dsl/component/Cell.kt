@@ -58,7 +58,7 @@ interface HasCells {
     fun repeatCell(times: Int, value: Boolean, modifier: Modifier = Modifier.None, size: Size = Size(1, 1), cellFormat: CellFormat? = null) =
         repeatCell(times, modifier, size, Type.Hardcoded.Boolean(value), cellFormat)
 
-    fun repeatCell(times: Int,  value: LocalDate, modifier: Modifier = Modifier.None, size: Size = Size(1, 1), cellFormat: CellFormat? = null) =
+    fun repeatCell(times: Int, value: LocalDate, modifier: Modifier = Modifier.None, size: Size = Size(1, 1), cellFormat: CellFormat? = null) =
         repeatCell(times, modifier, size, Type.Hardcoded.Date(value), cellFormat)
 
     fun repeatCell(times: Int, value: CellReference, modifier: Modifier = Modifier.None, size: Size = Size(1, 1), cellFormat: CellFormat? = null) =
@@ -66,10 +66,10 @@ interface HasCells {
 
     fun repeatCell(
         times: Int,
-        formula: HasFormulas.() -> Type.Formula,
         modifier: Modifier = Modifier.None,
         size: Size = Size(1, 1),
         cellFormat: CellFormat? = null,
+        formula: HasFormulas.() -> Type.Formula,
     ) = repeatCell(times, modifier, size, FormulasEnv().run(formula), cellFormat)
 
     fun repeatCell(

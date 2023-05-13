@@ -10,6 +10,6 @@ class ArrayFilter(
 )
 
 interface HasArrayFilter {
-    fun filter(range: CellRangeReference, conditions: Type.Booleans) =
-        ArrayFilter(Type.RangeReference.Anys(range), Type.Either(null, conditions))
+    fun filter(range: CellRangeReference, vararg conditions: Type.Booleans) =
+        ArrayFilter(Type.RangeReference.Anys(range), *conditions.map { Type.Either(null, it) }.toTypedArray())
 }

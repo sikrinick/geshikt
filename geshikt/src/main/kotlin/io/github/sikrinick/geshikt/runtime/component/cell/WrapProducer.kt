@@ -17,7 +17,7 @@ class WrapProducer(
 
     private fun Wrap.Type.map() = when (this) {
         Wrap.Type.Unspecified -> null
-        Wrap.Type.Overflow -> "OVERFLOW"
+        Wrap.Type.Overflow -> "OVERFLOW_CELL"
         Wrap.Type.Clip -> "CLIP"
         Wrap.Type.Wrap -> "WRAP"
     }

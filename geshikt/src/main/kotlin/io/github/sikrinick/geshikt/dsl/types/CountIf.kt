@@ -31,9 +31,10 @@ interface HasArrayCountIf : WorksWithFormulas {
         countIf(range.reference, criteria)
     fun countIf(range: CellRangeReference, criteria: CellRangeReference) =
         countIf(range.type(), criteria.type())
+    fun countIf(range: Type.Range, criteria: CellRangeReference) =
+        countIf(range, criteria.type())
     fun countIf(range: Type.Range, criteria: Type.Boolean) =
         ArrayCountIf(range, criteria.either())
     fun countIf(range: Type.Range, criteria: Type.Booleans) =
         ArrayCountIf(range, criteria.either())
-
 }
