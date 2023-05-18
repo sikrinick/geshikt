@@ -1,6 +1,7 @@
 package io.github.sikrinick.geshikt.dsl.types
 
 import io.github.sikrinick.geshikt.dsl.values.CellRangeReference
+import io.github.sikrinick.geshikt.dsl.values.CellReference
 import io.github.sikrinick.geshikt.dsl.values.HasCellRangeReference
 
 class DateDif(
@@ -8,7 +9,7 @@ class DateDif(
     endDate: Type.Date,
     unit: DateUnit,
 ) : Type.Formula.ReturnsNumber, Type.Formula by UseFormula(
-    "DATEDIF", startDate, endDate, Type.Hardcoded.Text(unit.toString())
+    "DATEDIF", startDate, endDate, Type.Hardcoded.Text(unit.value)
 )
 
 class ArrayDateDif(
@@ -19,8 +20,10 @@ class ArrayDateDif(
     "DATEDIF", startDate, endDate, Type.Hardcoded.Text(unit.value)
 )
 
-interface HasDateDif {
+interface HasDateDif : WorksWithFormulas {
 
+    fun datedif(startDate: CellReference, endDate: Type.Date, unit: DateUnit) =
+        DateDif(startDate.type(), endDate, unit)
     fun datedif(startDate: Type.Date, endDate: Type.Date, unit: DateUnit) =
         DateDif(startDate, endDate, unit)
 

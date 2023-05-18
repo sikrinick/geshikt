@@ -76,4 +76,6 @@ interface HasFormulas :
 
     // Text
     HasChar,
-    HasJoin
+    HasJoin,
+    HasRegexMatch,
+    HasToText

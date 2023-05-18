@@ -1,6 +1,7 @@
 package io.github.sikrinick.geshikt.dsl.types
 
 import io.github.sikrinick.geshikt.dsl.values.CellRangeReference
+import io.github.sikrinick.geshikt.dsl.values.CellReference
 
 class RegexMatch(
     val text: Type.Text,
@@ -18,15 +19,18 @@ class ArrayRegexMatch(
     override val arguments = arrayOf(text, pattern)
 }
 
-interface HasArrayRegexMatch {
+interface HasRegexMatch : WorksWithFormulas {
+    fun regexMatch(reference: CellReference, pattern: String) =
+        regexMatch(reference.type(), pattern)
+
+    fun regexMatch(text: Type.Text, pattern: String) =
+        RegexMatch(text, pattern.type())
+}
+
+interface HasArrayRegexMatch : WorksWithFormulas {
     fun regexMatch(reference: CellRangeReference, pattern: String) =
-        regexMatch(
-            Type.RangeReference.Texts(reference),
-            pattern
-        )
+        regexMatch(reference.type(), pattern)
+
     fun regexMatch(texts: Type.Texts, pattern: String) =
-        ArrayRegexMatch(
-            Type.Either(null, texts),
-            Type.Hardcoded.Text(pattern)
-        )
+        ArrayRegexMatch(texts.either(), pattern.type())
 }

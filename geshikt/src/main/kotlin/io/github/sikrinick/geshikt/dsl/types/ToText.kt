@@ -1,6 +1,7 @@
 package io.github.sikrinick.geshikt.dsl.types
 
 import io.github.sikrinick.geshikt.dsl.values.CellRangeReference
+import io.github.sikrinick.geshikt.dsl.values.CellReference
 
 class ToText(
     any: Type.Singular,
@@ -18,10 +19,12 @@ class ArrayToText(
     override val arguments = arrayOf(any, pattern)
 }
 
-interface HasArrayToText {
+interface HasToText : WorksWithFormulas {
+    fun text(reference: CellReference, pattern: String) =
+        ToText(reference.type(), pattern.type())
+}
+
+interface HasArrayToText : WorksWithFormulas {
     fun text(reference: CellRangeReference, pattern: String) =
-        ArrayToText(
-            Type.Either(null, Type.RangeReference.Anys(reference)),
-            Type.Hardcoded.Text(pattern)
-        )
+        ArrayToText(reference.type().either(), pattern.type())
 }

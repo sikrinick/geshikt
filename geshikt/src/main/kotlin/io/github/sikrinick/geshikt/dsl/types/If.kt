@@ -43,6 +43,9 @@ interface HasIf : WorksWithFormulas {
 
     fun `if`(condition: Type.Boolean, ifTrue: String, ifFalse: Type.Singular) =
         If(condition, ifTrue.type(), ifFalse)
+
+    fun `if`(condition: Type.Boolean, ifTrue: Type.Singular, ifFalse: Type.Singular) =
+        If(condition, ifTrue, ifFalse)
 }
 
 interface HasArrayIf : WorksWithFormulas {

@@ -23,6 +23,7 @@ interface HasLt : WorksWithFormulas {
     infix fun CellReference.isLessThan(number: Number) = Lt(type(), number.type())
     infix fun Number.isLessThan(reference: CellReference) = Lt(type(), reference.type())
     infix fun CellReference.isLessThan(reference: CellReference) = Lt(type(), reference.type())
+    infix fun Type.Number.isLessThan(number: Number) = Lt(this, number.type())
 
 }
 
