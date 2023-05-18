@@ -1,8 +1,7 @@
 package io.github.sikrinick.geshikt.runtime.sheet
 
-import com.google.api.services.sheets.v4.model.SheetProperties
+import com.google.api.services.sheets.v4.model.Request
 
 interface SheetModifierProcessor {
-    val field: String
-    val change: SheetProperties.() -> Unit
+    fun requests(currentSheetId: Int): List<Request>
 }

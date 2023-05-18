@@ -7,7 +7,7 @@ import io.github.sikrinick.geshikt.dsl.invoke
 
 class SheetGridPropertiesProcessor(
     val sheet: Sheet
-) : SheetModifierProcessor {
+) : SheetPropertiesProcessor {
 
     private val hideGridModifier = sheet.sheetModifiers<Sheet.Modifier.HideGrid>()
 

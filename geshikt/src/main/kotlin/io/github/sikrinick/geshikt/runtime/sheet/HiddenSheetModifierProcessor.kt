@@ -4,9 +4,9 @@ import com.google.api.services.sheets.v4.model.SheetProperties
 import io.github.sikrinick.geshikt.dsl.Sheet
 import io.github.sikrinick.geshikt.dsl.invoke
 
-class HiddenModifierProcessor(
+class HiddenSheetModifierProcessor(
     val sheet: Sheet
-) : SheetModifierProcessor {
+) : SheetPropertiesProcessor {
 
     private val hiddenModifier = sheet.sheetModifiers<Sheet.Modifier.Hidden>()
 

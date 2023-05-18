@@ -19,16 +19,18 @@ internal class SheetProcessor(
     private val uiSheet: UISheet,
     private val context: ProcessingContext,
     sheets: List<GoogleSheet>,
-    private val sheetModifierProcessors: List<SheetModifierProcessor> = listOf(
+    private val sheetPropertiesProcessors: List<SheetPropertiesProcessor> = listOf(
         SheetGridPropertiesProcessor(uiSheet),
-        HiddenModifierProcessor(uiSheet)
+        HiddenSheetModifierProcessor(uiSheet),
+    ),
+    private val sheetModifierProcessors: List<SheetModifierProcessor> = listOf(
+        HideRowsProcessor(uiSheet),
+        HideColumnsProcessor(uiSheet)
     )
 ) {
 
     private val sheetTitle = uiSheet.title.value
     private val currentSheet = sheets.firstOrNull { it.properties.title == sheetTitle }
-
-    private val modifiers = uiSheet.modifier.unfold()
 
     val createSheet = listOfNotNull(sheetTitle.takeUnless { currentSheet != null }?.let {
         request {
@@ -49,20 +51,27 @@ internal class SheetProcessor(
             ?: throw RuntimeException("Sheet Id was not found")
 
     fun updateSheet(currentSheetId: Int) = (
-            when((modifiers - Sheet.Modifier.None::class).size) {
-                0 -> emptyList()
-                else -> listOf(
+        (
+            sheetPropertiesProcessors
+                .map(SheetPropertiesProcessor::field)
+                .filter { it.isNotBlank() }
+                .takeIf { it.isNotEmpty() }
+                ?.let { modifierFields ->
                     request {
                         updateSheetProperties {
                             properties = sheetProperties {
                                 sheetId = currentSheetId
-                                sheetModifierProcessors.map(SheetModifierProcessor::change).forEach { it() }
-                                fields = sheetModifierProcessors.map(SheetModifierProcessor::field).joinToString(",")
+                                sheetPropertiesProcessors.map(SheetPropertiesProcessor::change).forEach { it() }
+                                fields = modifierFields.joinToString(",")
                             }
                         }
                     }
-                )
-            } + Container(Component(currentSheetId, uiSheet), uiSheet).requests
+                }
+                ?.let { listOf(it) }
+                ?: emptyList()
+        )
+        + sheetModifierProcessors.flatMap { it.requests(currentSheetId) }
+        + Container(Component(currentSheetId, uiSheet), uiSheet).requests
     ).order()
 
     private fun List<Request>.order() =
@@ -73,6 +82,7 @@ internal class SheetProcessor(
                     it.deleteNamedRange != null -> RequestType.DeleteNamedRange
                     it.addNamedRange != null -> RequestType.AddNamedRange
                     it.updateBorders != null -> RequestType.UpdateBorders
+                    it.updateDimensionProperties != null -> RequestType.UpdateDimensionProperties
                     else -> RequestType.Other
                 }
             },
@@ -85,7 +95,8 @@ internal class SheetProcessor(
 
         Other(50),
 
-        UpdateBorders(100);
+        UpdateBorders(100),
+        UpdateDimensionProperties(101);
 
         companion object {
             val highPriorityFirst = Comparator<RequestType> { a, b -> a.priority - b.priority }

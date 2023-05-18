@@ -39,6 +39,8 @@ class Sheet internal constructor(
         class FrozenColumns(val count: Int, root: Modifier? = null) : Modifier(root)
         class HideEmptyRows(root: Modifier? = null) : Modifier(root)
         class HideEmptyColumns(root: Modifier? = null) : Modifier(root)
+        class HideRows(val rowsToHide: List<Int>, root: Modifier? = null) : Modifier(root)
+        class HideColumns(val columnsToHide: List<Int>, root: Modifier? = null) : Modifier(root)
         internal object None : Modifier(null)
 
         fun hidden(hidden: Boolean) = hidden(hidden, this)
@@ -47,6 +49,9 @@ class Sheet internal constructor(
         fun freezeColumns(count: Int) = freezeColumns(count, this)
         fun hideEmptyRows() = hideEmptyRows(this)
         fun hideEmptyColumns() = hideEmptyColumns(this)
+        fun hideRows(rowsToHide: List<Int>) = hideRows(rowsToHide, this)
+        fun hideColumns(columnsToHide: List<Int>) = hideColumns(columnsToHide, this)
+
 
         companion object {
             fun hidden(hidden: Boolean, root: Modifier? = null) = Hidden(hidden, root)
@@ -55,6 +60,8 @@ class Sheet internal constructor(
             fun freezeColumns(count: Int, root: Modifier? = null) = FrozenColumns(count, root)
             fun hideEmptyRows(root: Modifier? = null) = HideEmptyRows(root)
             fun hideEmptyColumns(root: Modifier? = null) = HideEmptyColumns(root)
+            fun hideRows(rowsToHide: List<Int>, root: Modifier? = null) = HideRows(rowsToHide, root)
+            fun hideColumns(columnsToHide: List<Int>, root: Modifier? = null) = HideColumns(columnsToHide, root)
         }
     }
 }

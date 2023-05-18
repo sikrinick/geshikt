@@ -3,7 +3,7 @@ package io.github.sikrinick.geshikt.runtime.component
 import com.google.api.services.sheets.v4.model.GridCoordinate
 import com.google.api.services.sheets.v4.model.GridRange
 import io.github.sikrinick.geshikt.api.coordinate
-import io.github.sikrinick.geshikt.api.range
+import io.github.sikrinick.geshikt.api.gridRange
 import io.github.sikrinick.geshikt.dsl.component.layout.Area
 
 interface Grid {
@@ -15,7 +15,7 @@ class AreaProcessor(
     private val currentSheetId: Int,
     private val area: Area
 ) : Grid {
-    override val range = range {
+    override val range = gridRange {
         sheetId = currentSheetId
         startRowIndex = area.startY
         startColumnIndex = area.startX

@@ -29,10 +29,10 @@ class TypeProcessor(
                 "}"
 
             is Type.Criterion ->
-                "\"${process(operator)}${process(obj)}\""
+                "\"${process(operator)}\"&${process(obj)}"
 
             is Type.CriterionRange ->
-                "\"${process(operator)}${process(objs)}\""
+                "\"${process(operator)}\"&${process(objs)}"
 
             is Type.Either<*, *> ->
                 left?.let(::process) ?: right?.let(::process) ?: throw RuntimeException("Either is empty")
