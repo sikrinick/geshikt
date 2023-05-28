@@ -80,37 +80,37 @@ fun lazyColumn(named: String, modifier: Modifier = Modifier.None, block: Column.
     LazyColumn(NamedCellRangeReference(named), modifier, block)
 
 class LazyCell internal constructor(
-    override val reference: NamedCellReference,
+    val reference: NamedCellReference,
     internal val modifier: Modifier,
     internal val size: Size,
     internal val value: Type?,
     internal val cellFormat: CellFormat?
-) : HasCellReference {
+) {
     val name = reference.name
 }
 
 class LazyRow internal constructor(
-    override val reference: NamedCellRangeReference,
+    val reference: NamedCellRangeReference,
     internal val modifier: Modifier,
     internal val block: Row.() -> Unit
-) : HasCellRangeReference {
+) {
     val name = reference.name
 }
 
 class LazyColumn internal constructor(
-    override val reference: NamedCellRangeReference,
+    val reference: NamedCellRangeReference,
     internal val modifier: Modifier,
     internal val block: Column.() -> Unit
-) : HasCellRangeReference {
+) {
     val name = reference.name
 }
 
 class LazyBox internal constructor(
     internal val name: String,
     internal val modifier: Modifier,
-    override val reference: NamedCellRangeReference,
+    val reference: NamedCellRangeReference,
     internal val block: Box.() -> Unit
-) : HasCellRangeReference
+)
 
 context(HasCells)
 operator fun LazyCell.invoke(): Cell =

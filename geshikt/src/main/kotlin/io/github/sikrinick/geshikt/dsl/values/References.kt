@@ -14,29 +14,43 @@ sealed interface CellRangeReference : Reference
 sealed interface NamedReference : Reference {
     val name: String
 }
+sealed interface PositionedCellReference : CellReference {
+    val position: HasPosition
+}
+sealed interface PositionedCellRangeReference : CellRangeReference {
+    val area: Area
+}
 
-data class PositionedCellReference(val position: HasPosition) : CellReference
+data class OnlyPositionedCellReference(override val position: HasPosition) : CellReference, PositionedCellReference
 data class NamedCellReference(override val name: String) : CellReference, NamedReference
+data class BothNamedAndPositionedCellReference(
+    override val position: HasPosition,
+    override val name: String
+) : CellReference, NamedReference, PositionedCellReference
 
-data class PositionedCellRangeReference(val area: Area) : CellRangeReference
+data class OnlyPositionedCellRangeReference(override val area: Area) : CellRangeReference, PositionedCellRangeReference
 data class NamedCellRangeReference(override val name: String) : CellRangeReference, NamedReference
+data class BothNamedAndPositionedCellRangeReference(
+    override val name: String,
+    override val area: Area
+) : CellRangeReference, NamedReference, PositionedCellRangeReference
 
 interface HasCellReference {
-    val reference: CellReference
+    val reference: PositionedCellReference
 }
 interface HasCellRangeReference {
-    val reference: CellRangeReference
+    val reference: PositionedCellRangeReference
 }
 
 class CellReferencer(modifier: HasModifiers, position: HasPosition) : HasCellReference {
-    override val reference: CellReference = when (val named = modifier.modifiers<Named>()) {
-        null -> PositionedCellReference(position)
-        else -> NamedCellReference(named.name)
+    override val reference = when (val named = modifier.modifiers<Named>()) {
+        null -> OnlyPositionedCellReference(position)
+        else -> BothNamedAndPositionedCellReference(name = named.name, position = position)
     }
 }
 class RangeReferencer(modifier: HasModifiers, area: Area) : HasCellRangeReference {
-    override val reference: CellRangeReference = when (val named = modifier.modifiers<Named>()) {
-        null -> PositionedCellRangeReference(area)
-        else -> NamedCellRangeReference(named.name)
+    override val reference: PositionedCellRangeReference = when (val named = modifier.modifiers<Named>()) {
+        null -> OnlyPositionedCellRangeReference(area)
+        else -> BothNamedAndPositionedCellRangeReference(named.name, area)
     }
 }

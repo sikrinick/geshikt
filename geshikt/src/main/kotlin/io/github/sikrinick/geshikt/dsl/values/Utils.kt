@@ -8,7 +8,7 @@ fun PositionedCellRangeReference.toPositionedCellReferenceList() = with(area) {
             Position(title, x, y)
         }
     }.map {
-        PositionedCellReference(it)
+        OnlyPositionedCellReference(it)
     }
 }
 

@@ -13,7 +13,10 @@ class CountIf(
 
 interface HasCountIf : WorksWithFormulas {
     fun countIf(cellRangeReference: CellRangeReference, criterion: Criterion) =
-        CountIf(cellRangeReference.type(), Expression().let(criterion))
+        countIf(cellRangeReference.type(), criterion)
+
+    fun countIf(range: Type.Range, criterion: Criterion) =
+        CountIf(range, Expression().let(criterion))
 }
 
 class ArrayCountIf(

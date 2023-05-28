@@ -39,6 +39,9 @@ interface HasFormulas :
     HasDateDif,
     HasToday,
 
+    // Filter
+    HasFilter,
+
     // Google
     HasArrayFormula,
     HasQuery,
@@ -78,4 +81,5 @@ interface HasFormulas :
     HasChar,
     HasJoin,
     HasRegexMatch,
-    HasToText
+    HasToText,
+    HasTextJoin
