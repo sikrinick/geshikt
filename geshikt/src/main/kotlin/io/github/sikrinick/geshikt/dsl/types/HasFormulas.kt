@@ -50,6 +50,7 @@ interface HasFormulas :
     HasIsBlank,
 
     // Logical
+    HasAnd,
     HasIf,
     HasIfError,
     HasLambda,

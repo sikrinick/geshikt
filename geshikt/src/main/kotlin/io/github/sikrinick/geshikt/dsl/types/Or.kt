@@ -8,7 +8,7 @@ class Or(
 
 interface HasOr {
 
+    infix fun Type.Boolean.or(logicalExpression: Type.Boolean) = or(this, logicalExpression)
     fun or(vararg logicalExpressions: Type.Boolean) = Or(*logicalExpressions)
-    infix fun Type.Boolean.or(logicalExpression: Type.Boolean) = Or(this, logicalExpression)
 
 }
