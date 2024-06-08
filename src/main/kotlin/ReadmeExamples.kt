@@ -89,7 +89,7 @@ fun Spreadsheet.readmeExamples() = sheet(
         column {
             val students = lazyColumn("guitar_players") {
                 cell("James Hetfield")
-                cell("Roman Saenko")
+                cell("Carlos Santana")
             }
             row {
                 cell("Count of guitar players"); cell { counta(students.reference) }

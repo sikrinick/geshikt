@@ -1,8 +1,8 @@
 # Geshikt — Google Sheets in Kotlin
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.sikrinick/geshikt/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.sikrinick/geshikt)
 
 Geshikt is a declarative API to set up spreadsheets and sheets in Google Sheets.  
 [**Link to example in Google Sheets.**](https://docs.google.com/spreadsheets/d/14bNTI4fdFxPiccbd7KJyv5-Yu_00jj7vwQqm2QEbVJU/edit?usp=sharing)
-
 
 ## Getting started
 
@@ -12,7 +12,7 @@ repositories {
     mavenCentral()
 }
 
-implementation(group = "io.github.sikrinick", name = "geshikt", version = "0.0.1-SNAPSHOT")
+implementation(group = "io.github.sikrinick", name = "geshikt", version = "1.0.0")
 ```
 
 ## Google Sheets Access
@@ -298,7 +298,7 @@ This is useful when one wants to use component before it is added to a grid.
 column {
     val students = lazyColumn("guitar_players") {
         cell("James Hetfield")
-        cell("Roman Saenko")
+        cell("Carlos Santana")
     }
     row {
         cell("Count of guitar players"); cell { counta(students.reference) }
