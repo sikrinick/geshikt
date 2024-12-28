@@ -3,12 +3,7 @@ import io.github.sikrinick.geshikt.dsl.component.layout.Size
 import io.github.sikrinick.geshikt.dsl.component.modifiers.Modifier
 import io.github.sikrinick.geshikt.dsl.component.style.StandardColors
 import io.github.sikrinick.geshikt.dsl.component.style.colored
-import io.github.sikrinick.geshikt.dsl.component.style.text.Font
-import io.github.sikrinick.geshikt.dsl.component.style.text.bold
-import io.github.sikrinick.geshikt.dsl.component.style.text.font
-import io.github.sikrinick.geshikt.dsl.component.style.text.fontSize
-import io.github.sikrinick.geshikt.dsl.component.style.text.strikethrough
-import io.github.sikrinick.geshikt.dsl.component.style.text.textColor
+import io.github.sikrinick.geshikt.dsl.component.style.text.*
 import io.github.sikrinick.geshikt.dsl.values.invoke
 import io.github.sikrinick.geshikt.dsl.values.lazyCell
 import io.github.sikrinick.geshikt.dsl.values.lazyColumn
@@ -40,7 +35,7 @@ fun Spreadsheet.references() {
         column(Modifier.font(Font.Inconsolata)) {
             row(Modifier.fontSize(72)) {
                 cell(two.reference, Modifier.textColor(StandardColors.red))
-                cell { arrayformula(threeAndFour) }
+                cell { arrayformula(threeAndFour.reference) }
                 space(1)
                 cell("5", size = Size(2, 2))
                 cell("6")
@@ -60,7 +55,7 @@ fun Spreadsheet.references() {
             column {
                 cell("12")
                 cell {
-                    arrayformula(thirteenAndFourteen)
+                    arrayformula(thirteenAndFourteen.reference)
                 }
             }
         }
