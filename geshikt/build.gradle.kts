@@ -55,26 +55,26 @@ publishing {
             artifact(javadocJar)
 
             pom {
-                name.set("${project.group}:${project.description}")
-                description.set(name)
+                name = "${project.group}:${project.name}"
+                description = "Kotlin DSL for Google Sheets"
                 url.set("https://github.com/sikrinick/geshikt")
                 licenses {
                     license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("https://www.apache.org/licenses/LICENSE-2.0")
+                        name = "The Apache License, Version 2.0"
+                        url = "https://www.apache.org/licenses/LICENSE-2.0"
                     }
                 }
                 developers {
                     developer {
-                        id.set("sikrinick")
-                        name.set("Mykyta Sikriier")
-                        email.set("sikrinick@gmail.com")
+                        id = "sikrinick"
+                        name = "Mykyta Sikriier"
+                        email = "sikrinick@gmail.com"
                     }
                 }
                 scm {
-                    url.set("scm:git:https://github.com/sikrinick/geshikt.git")
-                    connection.set("scm:git:https://github.com/sikrinick/geshikt.git")
-                    developerConnection.set("scm:git:https://github.com/sikrinick/geshikt.git")
+                    url = "scm:git:https://github.com/sikrinick/geshikt.git"
+                    connection = "scm:git:https://github.com/sikrinick/geshikt.git"
+                    developerConnection = "scm:git:https://github.com/sikrinick/geshikt.git"
                 }
             }
             the<SigningExtension>().sign(this)

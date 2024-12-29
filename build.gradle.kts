@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.sikrinick:geshikt")
+    implementation("io.github.sikrinick:geshikt:1.0.0")
     testImplementation(kotlin("test"))
 }
 
